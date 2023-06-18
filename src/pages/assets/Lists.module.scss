@@ -3,6 +3,7 @@
   justify-content: center;
   gap: 1rem;
   max-width: 140rem;
+  margin: auto;
   flex-flow: column;
   padding: 1rem;
   &_row {
@@ -14,17 +15,30 @@
   }
 
   &_addbtn {
-    width: 100%;
+    width: 98%;
+    margin: auto;
+    display: flex;
+    align-items: center;
+
+    &_name {
+      width: 100%;
+      flex: auto 1 1;
+      display: none;
+      @media screen and (min-width: 768px) {
+        display: block;
+      }
+    }
 
     &_btn {
-      width: 100%;
+      width: max-content;
+
       button {
-        width: 100%;
+        width: max-content;
         display: flex;
         align-items: center;
         justify-content: center;
         gap: 1rem;
-        padding: 1.4rem 0;
+        padding: 1.4rem 1rem;
         color: var(--blue);
         border-color: var(--redLight);
         transition: all 0.4s ease-in-out;
@@ -48,6 +62,14 @@
           path {
             fill: var(--redLight) !important;
           }
+        }
+      }
+
+      @media screen and (max-width: 768px) {
+        width: 100%;
+
+        button {
+          width: 100%;
         }
       }
     }

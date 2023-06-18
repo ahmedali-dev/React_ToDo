@@ -67,20 +67,9 @@ const List = ({ ...props }) => {
     // _____________________________
     // _____________________________
 
-    const addbtn = <div key={'add_button_event_item'} className={listcss('addbtn')}>
-        <Button classname={listcss('addbtn_btn')} onClick={() => setshowAdd(true)}>
-            <Add /> <span>Add new <strong>task</strong></span>
-        </Button>
-    </div>;
 
-    const addComp = <div key={'add_new_list_item'} className={listcss('add')}>
-        <Input ref={addinputref} placeholder='add new list' classname={listcss('add_input')} />
-        <Button classname={listcss('add_button')} onClick={createNewTask}>
-            <Mark />
-        </Button>
-    </div>
 
-    const sideCom = <List_Side data={data} auth={auth} />;
+    const sideCom = (active = false, listName) => <List_Side data={data} auth={auth} sideActive={active} listName={listName} />;
 
     if (params.id) {
         const getList = data.find(list => list.id == params.id);
@@ -91,9 +80,33 @@ const List = ({ ...props }) => {
                 setTimeout(() => getList.task, 1000);
             }
         };
+        const name = () => {
+            try {
+                return getList.name ?? '';
+            } catch (error) {
+                setTimeout(() => getList.name, 1000);
+            }
+        };
+
+
+        const addbtn = <div key={'add_button_event_item'} className={listcss('addbtn')}>
+            <h3 className={listcss('addbtn_name')}>{name()}</h3>
+            <Button classname={listcss('addbtn_btn')} onClick={() => setshowAdd(true)}>
+                <Add /> <span>Add new <strong>task</strong></span>
+            </Button>
+
+        </div>;
+
+        const addComp = <div key={'add_new_list_item'} className={listcss('add')}>
+            <Input ref={addinputref} placeholder='add new list' classname={listcss('add_input')} />
+            <Button classname={listcss('add_button')} onClick={createNewTask}>
+                <Mark />
+            </Button>
+        </div>
+
         // const tasks = getList.task ?? [];
         return <div className={css.lContainer}>
-            {sideCom}
+            {sideCom(false, name())}
             <div className={container('row')}>
                 {/* add new item button*/}
                 {!showAdd && addbtn}
@@ -115,7 +128,7 @@ const List = ({ ...props }) => {
 
     }
     return <div className={css.lContainer}>
-        {sideCom}
+        {sideCom(true)}
         <div className={container('row')} >
             <h4>Select any collection</h4>
         </div>

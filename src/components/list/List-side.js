@@ -15,7 +15,7 @@ const addcss = (n) => css[`add_${n}`];
 //     { name: 'item2', id: 2 },
 //     { name: 'item3', id: 3 },
 // ]
-const List_Side = ({ auth, data, add, addhandle, ...props }) => {
+const List_Side = ({ auth, data, add, addhandle, sideActive, listName, ...props }) => {
 
     const addinputref = useRef(null);
     const dispatch = useDispatch();
@@ -61,12 +61,17 @@ const List_Side = ({ auth, data, add, addhandle, ...props }) => {
                 <span></span>
                 <span></span>
             </div>
-            {!active && <h3>list name</h3>}
+            {!active && <h3>{listName}</h3>}
         </div>
 
     return <>
         {sideToggle()}
-        <div key={'list_side'} className={`${css.side} ${side && sidecss('active')}`}>
+        <div key={'list_side'}
+            className={`
+                ${css.side}
+                ${side && sidecss('active')}
+                ${sideActive && sidecss('active')}`
+            }>
 
             {sideToggle(true)}
 
@@ -84,12 +89,15 @@ const List_Side = ({ auth, data, add, addhandle, ...props }) => {
             {/* _______________________ */}
             {/* lists maping */}
             {/* _______________________ */}
-            {(data && data.length > 0) && data.map(d => <NavLink key={d.id} className={({ isActive }) =>
-                isActive ? `${sidecss("link")} ${sidecss("link_active")}` : sidecss("link")} to={`/lists/${d.id}`}>
-                <div className={sidecss('link_item')}>
-                    <h3>{d.name}</h3>
-                </div>
-            </NavLink>)}
+            {(data && data.length > 0) && data.map(d =>
+                <NavLink
+                    onClick={() => showside(false)}
+                    key={d.id} className={({ isActive }) =>
+                        isActive ? `${sidecss("link")} ${sidecss("link_active")}` : sidecss("link")} to={`/lists/${d.id}`}>
+                    <div className={sidecss('link_item')}>
+                        <h3>{d.name}</h3>
+                    </div>
+                </NavLink>)}
 
 
 

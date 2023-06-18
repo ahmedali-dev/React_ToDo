@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, navigator } from "react-router-dom";
 import "./App.scss";
 import React, { useContext } from "react";
 import AuthContext from "./Store/Auth-context";
@@ -33,7 +33,7 @@ const App = (props) => {
             <Route path={"/auth/signup"} element={<SignUp />} />
             <Route path={"/auth/signin"} element={<Signin />} />
           </Route>
-          <Route path={"*"} element={<div>page not found</div>} />
+          <Route path={"*"} element={is_authed ? <diva>page not found</diva> : <navigator to='/auth/signin' />} />
         </Routes>
         <div className={"navLine"}></div>
       </main>
