@@ -1,0 +1,372 @@
+@mixin flex($align: center, $just: center) {
+  display: flex;
+  align-items: $align;
+  justify-content: $just;
+}
+
+@mixin lineText($line: 1) {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: $line;
+}
+
+.headers {
+  //background: var(--blueLight);
+  @include flex(center, space-between);
+  padding: 0 1rem;
+
+
+  &_logo {
+    @include flex;
+
+    &_logo {
+      width: 5rem;
+      height: 5rem;
+      background-size: 100%;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+
+    &_name {
+      font-weight: bold;
+      font-size: 1.4rem;
+      color: var(--blueLight);
+    }
+  }
+
+  &_search {
+
+    &_logo {
+      svg {
+        width: 3rem;
+        height: 3rem;
+      }
+    }
+
+    &_form {
+      display: none;
+    }
+  }
+
+
+  @media screen and (min-width: 768px) {
+    max-width: 60rem;
+    margin: auto;
+
+
+    &_logo {
+      display: none;
+    }
+
+    &_search {
+      width: 100%;
+
+
+      &_logo {
+        display: none;
+      }
+
+      &_form {
+        display: flex;
+
+        .formGroup {
+          width: 100%;
+          border-radius: .7rem;
+
+          input {
+            width: 100%;
+            border: none;
+            padding: 2rem;
+            background: var(--white) !important;
+            box-shadow: var(--shadowBlue);
+
+            &:focus {
+              outline: .2rem solid var(--blue);
+            }
+          }
+        }
+
+        .closeForm {
+          display: none;
+        }
+      }
+    }
+  }
+}
+
+.headersSearch {
+  width: 100%;
+  padding: unset;
+
+  .headers_logo {
+    display: none;
+  }
+
+  .headers_search_logo {
+    display: none;
+  }
+
+  .headers_search {
+    width: 100%;
+
+    .headers_search_form {
+      display: flex;
+      position: relative;
+      width: 100%;
+
+      .formGroup {
+        width: 100%;
+
+        input {
+          width: 100%;
+          border: none;
+          padding: 2rem;
+
+          &:focus {
+            outline: .2rem solid var(--blue);
+            box-shadow: var(--shadowBlue);
+          }
+        }
+      }
+
+      .closeForm {
+        position: absolute;
+        right: 1rem;
+        top: 50%;
+        transform: translateY(-50%);
+
+
+        svg {
+          width: 3rem;
+          height: 3rem;
+          fill: var(--redLight);
+        }
+      }
+    }
+  }
+}
+
+.card {
+  width: 90%;
+  max-height: 17rem;
+  background: white;
+  margin: 0rem auto auto auto;
+  border-radius: .7rem;
+  box-shadow: var(--shadowGray);
+  cursor: pointer;
+  padding: 1rem;
+  border: .2rem solid var(--gray);
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+
+  @media screen and (min-width: 550px) {
+    width: 25rem;
+    margin: unset;
+  }
+
+
+  &_top {
+    display: none;
+    padding: 1rem 0;
+
+    .delete, .back {
+      cursor: pointer;
+
+      svg {
+        width: 3rem;
+        height: 3rem;
+      }
+    }
+
+    .delete {
+      fill: var(--redLight);
+    }
+
+    .back {
+      fill: var(--blue);
+    }
+  }
+
+  &_title {
+    width: 100%;
+    color: var(--green);
+    @include lineText;
+    margin-bottom: 1rem;
+  }
+
+  &_progress {
+    &_content {
+      position: relative;
+
+      .down {
+        display: block;
+        width: 100%;
+        height: 2rem;
+        background: var(--gray);
+        border-radius: 1rem;
+        margin-top: .5rem;
+        box-shadow: inset .1rem 0 1rem var(--gray);
+      }
+
+      .up {
+        height: 2rem;
+        background: var(--gray);
+        border-radius: 1rem;
+        box-shadow: var(--shadowBlue);
+
+        position: absolute;
+        top: 0;
+        left: 0;
+        background: var(--blue);
+        transition: all .4s ease-in-out;
+        animation: widthAnim 1s ease-in-out;
+
+
+        @keyframes widthAnim {
+          from {
+            width: 0;
+          }
+        }
+      }
+    }
+  }
+
+  &_body {
+    margin-top: 1rem;
+    @include lineText(2)
+  }
+
+  &_date {
+    //position: sticky;
+    //bottom: 0;
+    color: var(--blueLight);
+    margin-top: .4rem;
+  }
+
+  &_add {
+    @include flex;
+    position: relative;
+    margin: 2rem 0;
+
+    &_btn {
+      width: 100%;
+      height: 4rem;
+
+
+      button {
+        width: 100%;
+        height: 100%;
+        @include flex;
+        border: none;
+        background: var(--green);
+
+        svg {
+          width: 2rem;
+          height: 2rem;
+          fill: var(--white);
+        }
+      }
+
+      &_active {
+        position: absolute;
+        top: 50%;
+        right: 1rem;
+        transform: translateY(-50%);
+        width: 3rem;
+        height: 3rem;
+
+        button {
+          border-radius: 50%;
+          box-shadow: var(--shadowGreen);
+          padding: .4rem;
+
+          svg {
+            width: 3rem;
+            height: 3rem;
+          }
+        }
+      }
+    }
+
+    &_form {
+      display: none;
+
+      &_active {
+        display: block;
+        width: 100%;
+
+        input {
+          width: 100%;
+          border-color: var(--green);
+          height: 5.1rem;
+
+          &:focus {
+            outline: none;
+            box-shadow: var(--shadowGreenLight);
+          }
+        }
+      }
+    }
+
+  }
+
+  &.card_popup {
+    position: fixed;
+    width: 100vw;
+    min-height: 100vh;
+    top: 0;
+    left: 0;
+    z-index: 9;
+    margin: unset;
+    overflow-y: auto;
+
+    &::-webkit-scrollbar {
+      background: var(--green);
+      width: .4rem;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: var(--blue);
+      border-radius: .7rem;
+    }
+
+    @media screen and (min-width: 768px) {
+      width: 80%;
+      min-height: 70vh;
+      box-shadow: var(--shadowGreenLight);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    @media screen and (min-width: 1024px) {
+      width: 60rem;
+    }
+
+    .card_top {
+      @include flex(center, space-between);
+    }
+
+    .card_body {
+      @include flex(flex-start, center);
+      flex-flow: column;
+      gap: 1rem;
+      //background: blue;
+      padding: .4rem 0;
+    }
+  }
+}
+
+.mask {
+  @media screen and (min-width: 768px) {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: #D0D0E111;
+    z-index: 8;
+  }
+}

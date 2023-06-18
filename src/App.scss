@@ -1,0 +1,102 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,700;0,900;1,400&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+:root {
+  --white: #fff;
+  --whiteBlue: #ecf2ff;
+  --blue: #3e54ac;
+  --blueLight: #7286d3;
+  --whiteBlueLight: #8ea7e9;
+  --redLight: #ff6464;
+  --gray: rgba(159, 167, 186, 0.09);
+  --disabled: #c3c8de;
+  --green: #6d9886;
+  --blueback: #3c486b;
+
+  /* shadow */
+  --shadowBlue: -2px 5px 13px 2px rgba(62, 84, 172, 0.23);
+  --shadowGray: 0.3rem 0.1rem 1rem #9fa7ba17;
+  --shadowGreen: 0.4rem 0.1rem 1.6rem var(--green);
+  --shadowGreenLight: 0.4rem 0.1rem 1.6rem #6d988644;
+
+  /* z-index */
+  --maxzindex: 11;
+}
+
+@mixin shadow($color) {
+  box-shadow: 0 6px 17px $color;
+}
+
+@mixin flex($con, $align: center, $justify: center) {
+  display: flex;
+  @if $con == "all" {
+    align-items: $align;
+    justify-content: $justify;
+  } @else if $con == "align" {
+    align-items: $align;
+  } @else if $con == "jsutify" {
+    justify-content: $jsutify;
+  }
+}
+
+html {
+  font-size: 62.5%;
+  background: var(--whiteBlue);
+}
+
+img {
+  width: 100%;
+  object-fit: cover;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+  cursor: pointer;
+}
+
+input {
+  padding: 1rem;
+  border: 0.2rem solid #33333373;
+  border-radius: 0.5rem;
+  box-shadow: var(--shadowBlack20);
+}
+
+button {
+  padding: 1rem;
+  border: 0.2rem solid #33333373;
+  border-radius: 0.5rem;
+  box-shadow: var(--shadowBlack20);
+  background: none;
+  cursor: pointer;
+}
+
+.center {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.navLine {
+  margin-top: 10rem;
+  @media screen and (min-width: 768px) {
+    margin-top: unset;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  main {
+    margin-top: 5rem;
+  }
+}
+
+.wmde-markdown .wmde-markdown-color {
+  flex: 0 1 1;
+}

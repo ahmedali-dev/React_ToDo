@@ -1,0 +1,163 @@
+.nav {
+  --width: 4.6rem;
+
+  position: fixed;
+  background: white;
+  bottom: 0rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  padding: 1rem;
+  border-radius: .4rem;
+  box-shadow: var(--shadowBlue);
+  z-index: 2;
+
+
+  &_logo {
+    display: none;
+  }
+
+  &_content {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    gap: 2rem;
+
+
+    &_item {
+      &:not(:last-child) {
+        a {
+          span {
+            //display: none;
+          }
+        }
+      }
+
+      //padding: .4rem;
+
+
+      a {
+        width: var(--width);
+        height: var(--width);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-flow: column;
+        text-align: center;
+
+        span {
+          font-size: .7rem;
+        }
+
+        svg {
+          //stroke-width: calc(var(--width) / 2);
+          padding: .4rem;
+        }
+
+        .user {
+          display: block;
+          width: 4rem;
+          height: 4rem;
+          border-radius: 50%;
+          background-position: center;
+          background-size: cover;
+          background-repeat: no-repeat;
+        }
+      }
+
+      &_linkActive {
+        span {
+          color: var(--blue);
+        }
+
+        svg {
+          fill: var(--blue)
+        }
+      }
+    }
+  }
+
+  @media screen and (min-width: 768px) {
+    position: sticky;
+    width: 100%;
+    left: unset;
+    top: 0;
+    transform: unset;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 3rem;
+    //margin-bottom: 5rem;
+
+    &_logo {
+      display: flex;
+
+      &_icon {
+        video {
+          display: flex;
+          width: var(--width);
+          height: var(--width);
+          //border-radius: 50%;
+
+          source {
+            width: var(--width);
+            height: var(--width);
+          }
+        }
+      }
+
+
+    }
+
+    &_content {
+      gap: 2rem;
+
+      &_item {
+        &:not(:last-child) {
+          a {
+            span {
+              //display: none;
+            }
+          }
+        }
+
+        //padding: .4rem;
+
+
+        a {
+          width: unset;
+          flex-flow: row;
+          padding: 1rem;
+          border-radius: .5rem;
+
+
+          span {
+            font-size: 1.2rem;
+
+          }
+
+          svg {
+            width: 3rem !important;
+            height: 3rem !important;
+            //padding: .8rem;
+          }
+
+        }
+
+        &_linkActive {
+          background: var(--blue);
+          box-shadow: var(--shadowBlue);
+
+          span {
+            color: var(--white);
+          }
+
+          svg {
+            fill: var(--white)
+          }
+        }
+      }
+    }
+  }
+}
+

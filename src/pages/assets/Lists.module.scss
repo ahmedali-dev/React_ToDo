@@ -1,0 +1,111 @@
+.lContainer {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  max-width: 140rem;
+  flex-flow: column;
+  padding: 1rem;
+  &_row {
+    flex: auto 1 1;
+  }
+
+  @media screen and (min-width: 768px) {
+    flex-flow: row;
+  }
+
+  &_addbtn {
+    width: 100%;
+
+    &_btn {
+      width: 100%;
+      button {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+        padding: 1.4rem 0;
+        color: var(--blue);
+        border-color: var(--redLight);
+        transition: all 0.4s ease-in-out;
+
+        &:hover {
+          background: var(--redLight);
+          box-shadow: var(--shadowGray);
+          color: var(--white);
+
+          svg {
+            path {
+              fill: var(--blueback) !important;
+            }
+          }
+        }
+
+        svg {
+          width: 2.5rem;
+          height: 2.4rem;
+
+          path {
+            fill: var(--redLight) !important;
+          }
+        }
+      }
+    }
+  }
+
+  &_add {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    gap: 1rem;
+    &_input {
+      width: 100%;
+
+      input {
+        width: 100%;
+        border: none;
+        outline: none;
+        &:focus,
+        &:active {
+          outline: none;
+        }
+      }
+    }
+
+    &_button {
+      button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 4rem;
+        height: 4rem;
+        color: var(--blueLight);
+        border-radius: 40rem;
+        border-color: var(--blueLight);
+        transition: 0.4s ease-in-out;
+        &:hover {
+          background: var(--blueLight);
+          border: none;
+          box-shadow: var(--shadowBlue);
+          transform: scale(1.1);
+
+          svg {
+            path {
+              stroke: var(--white);
+            }
+          }
+        }
+
+        svg {
+          width: 3rem;
+          height: 3rem;
+
+          path {
+            stroke: var(--blueLight);
+          }
+        }
+      }
+    }
+  }
+}
