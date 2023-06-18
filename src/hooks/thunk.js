@@ -1,5 +1,5 @@
 // API.js
-import axios from "./../hooks/axios";
+import instance from "./../hooks/axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
 
@@ -11,9 +11,10 @@ export const FetchData = async (url, requestData = {}, headers = {}, auth) => {
             "Content-Type": "application/json",
             ...headers
         };
-        const response = await axios.post(url, requestData, { headers });
+        const response = await instance.post(url, requestData, { headers });
         return response.data;
     } catch (error) {
+        console.log(error)
         throw new Error("Error: Operation could not be completed" + error);
     }
 };
