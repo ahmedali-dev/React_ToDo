@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
+import style from './NoteCom.module.scss'
 import Note from "./Note_item";
+import { createMotionComponent } from "framer-motion";
 
 const NotesOrdring = ({ data, ...props }) => {
 
@@ -7,37 +9,35 @@ const NotesOrdring = ({ data, ...props }) => {
     const [orderRun, setOrderRun] = useState(true);
     const [rows, setRow] = useState([]);
 
-    const ordaringNote = () => {
-        setOrderRun(false);
-        const pagex = window.innerWidth > 1200 ? 1200 : window.innerWidth;
+    const ordaringNote = (event = null) => {
+
+        let pagex = null;
+
+        if (!event) {
+            console.log('event fnot found')
+            setOrderRun(false);
+            pagex = window.innerWidth > 1200 ? 1200 : window.innerWidth;
+        } else {
+            pagex = event.currentTarget.innerWidth > 1200 ? 1200 : event.currentTarget.innerWidth;
+        }
         const NotesCount = data.length;
         const NoteWidth = 270;
         const NotesColumn = Math.floor(pagex / NoteWidth) > 5 ? 5 : Math.floor(pagex / NoteWidth);
 
         // console.log(NotesCount / NotesColumn)
-        const slice = Math.floor(NotesCount / NotesColumn);
+        const slice = Math.round(NotesCount / NotesColumn);
         let content = [];
         let contentobject = [];
         let indexSlice = slice;
-        console.log('00000000000000000000000000000000000000')
+
+        // console.log('________________________________________')
+        // console.log(slice)
         for (let index = 0; index < (NotesCount + 1); index++) {
 
-            // if (index % slice == 0) {
-            //     indexSlice = index;
-
-            // };
-            // if (index == 0) {
-            //     content[indexSlice] =
-            //         [
-            //             data[index],
-            //         ]
-            // }else{
-
-            // }
 
 
             if (index >= indexSlice) {
-                console.log(indexSlice)
+                // console.log(indexSlice)
                 indexSlice += slice;
                 content.push(contentobject)
                 contentobject = [];
@@ -47,81 +47,28 @@ const NotesOrdring = ({ data, ...props }) => {
                 content.push(contentobject);
                 contentobject = [];
             }
-
             if (data[index]) contentobject.push(data[index]);
 
 
-
-            // }
-
-            console.log(index, '==>', data[index])
         }
-        console.log(slice)
-        console.log(content)
-        setRow(content);
-        // setRow(data.map((note,index) => {
-        //     const obj = [];
-
-        // }))
-
-
-
+        setRow(content)
+        // console.log(content)
 
     }
     useEffect(() => {
         try {
             if (orderRun) ordaringNote();
-            window.addEventListener('resize', (event) => {
-                const pagex = event.currentTarget.innerWidth > 1200 ? 1200 : event.currentTarget.innerWidth;
-                const NotesCount = data.length;
-                const NoteWidth = 270;
-                const NotesColumn = Math.floor(pagex / NoteWidth) > 5 ? 5 : Math.floor(pagex / NoteWidth);
-
-                // console.log(NotesCount / NotesColumn)
-                const slice = Math.floor(NotesCount / NotesColumn);
-                let content = [];
-                let contentobject = [];
-                let indexSlice = slice;
-                console.log('00000000000000000000000000000000000000')
-                for (let index = 0; index < (NotesCount + 1); index++) {
-
-
-                    if (index >= indexSlice) {
-                        console.log(indexSlice)
-                        indexSlice += slice;
-                        content.push(contentobject)
-                        contentobject = [];
-                    }
-
-                    if (index == (NotesCount) && contentobject.length > 0) {
-                        content.push(contentobject);
-                        contentobject = [];
-                    }
-
-                    if (data[index]) contentobject.push(data[index]);
-                }
-                setRow(content)
-            })
+            window.addEventListener('resize', ordaringNote)
         } catch (error) {
             console.log(window)
         }
-        // return async () => {
-        //     await delay(1000);
-
-        // }
     }, []);
 
-    return <div style={{
-        margin: 'auto',
-        display: 'flex',
-        justifyContent: 'center',
-        flexFlow: 'wrap',
-        gap: '2rem',
-
-    }}>
+    const css = (Class = '') => Class.length > 0 ? style[`NotesRows_${Class}`] : style.NotesRows;
+    return <div className={css()}>
         {rows && rows.map(row => {
             // console.log(row)
-            return <div>
+            return <div className={css('row')}>
                 {row.map(note => <Note
                     id={note.id}
                     title={note.title}

@@ -1,5 +1,8 @@
 import React, { useRef } from 'react';
 import NotesOrdring from '../components/notes/Notes_ordring';
+import NoteForm from '../components/notes/NoteForm';
+import { Add } from '../components/icons/icons';
+import { Link } from 'react-router-dom';
 
 const dummyNotes = [
     {
@@ -76,10 +79,16 @@ const dummyNotes = [
 
 
 
-const Notes = () => {
+const Notes = ({ add }) => {
 
     return (
         <div>
+            {add && <NoteForm />}
+            <div>
+                <Link to={'/notes/add'}>
+                    <Add />
+                </Link>
+            </div>
             <NotesOrdring data={dummyNotes} />
         </div>
 
