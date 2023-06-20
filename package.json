@@ -12,6 +12,7 @@
     "formik": "^2.2.9",
     "framer-motion": "^10.12.5",
     "html-react-parser": "^3.0.16",
+    "jsonwebtoken": "^9.0.0",
     "mermaid": "^10.2.3",
     "react": "^18.2.0",
     "react-auth-kit": "^2.11.0",
@@ -27,6 +28,7 @@
     "rehype-sanitize": "^5.0.1",
     "remark-gfm": "^3.0.1",
     "sass": "^1.58.3",
+    "tinymce": "^6.5.0",
     "web-vitals": "^2.1.4",
     "yup": "^1.0.2"
   },

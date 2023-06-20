@@ -64,6 +64,13 @@ const List_Side = ({ auth, data, add, addhandle, sideActive, listName, ...props 
             {!active && <h3>{listName}</h3>}
         </div>
 
+    const getData = () => {
+        try {
+            return data ?? [];
+        } catch (error) {
+            return [];
+        }
+    }
     return <>
         {sideToggle()}
         <div key={'list_side'}

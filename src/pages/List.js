@@ -46,8 +46,11 @@ const List = ({ ...props }) => {
 
 
                 } catch (error) {
-                    console.log(error)
-                    auth.logout();
+                    const { message } = error.response.data;
+                    if (message) {
+                        auth.logout();
+                    }
+
                 }
 
             })();

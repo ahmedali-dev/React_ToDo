@@ -1,0 +1,66 @@
+.Note {
+  width: 24rem;
+  background: var(--white);
+  box-shadow: var(--shadowGray);
+  min-height: 4rem;
+  max-height: 30rem;
+  padding: 1rem;
+  border-radius: 0.7rem;
+  margin-top: 0.5rem;
+  display: block;
+  overflow: hidden;
+
+  &_link {
+    &_title {
+      font-size: 1.6rem;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      -webkit-line-clamp: 1;
+      -webkit-box-orient: vertical;
+      display: -webkit-box;
+      white-space: normal;
+      color: var(--blue);
+      &::after {
+        content: attr(aria-label);
+        color: #aaa;
+      }
+    }
+
+    &_note {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      -webkit-line-clamp: 10;
+      -webkit-box-orient: vertical;
+      display: -webkit-box;
+      white-space: normal;
+      &::after {
+        content: attr(aria-label);
+        color: #aaa;
+      }
+    }
+
+    &_option {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      padding: 1rem;
+      gap: 1rem;
+      &_item {
+        width: 2rem;
+        height: 2rem;
+        cursor: pointer;
+        transition: all 0.4s ease-in-out;
+
+        &:hover {
+          scale: 1.1;
+        }
+
+        &:last-child {
+          svg {
+            fill: var(--redLight);
+          }
+        }
+      }
+    }
+  }
+}

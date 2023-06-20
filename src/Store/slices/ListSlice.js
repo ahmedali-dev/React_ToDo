@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import {
-    Thunk, BuilderHanlde, FetchData
+    BuilderHanlde, FetchDataThunk
 } from "../../hooks/thunk";
 import { toast } from "react-hot-toast";
 
@@ -16,7 +16,7 @@ export const addList = createAsyncThunk(
     'add/list',
     async (payload) => {
         const { body, auth } = payload;
-        const fetch = await FetchData('/lists/add', body, {}, auth);
+        const fetch = await FetchDataThunk('/lists/add', body, {}, auth);
         return fetch;
     }
 );
@@ -24,7 +24,7 @@ export const addList = createAsyncThunk(
 export const addTask = createAsyncThunk('add/task',
     async (payload) => {
         const { body, auth } = payload;
-        const fetch = await FetchData('/lists/task/add', body, {}, auth);
+        const fetch = await FetchDataThunk('/lists/task/add', body, {}, auth);
         return fetch;
     })
 
@@ -32,14 +32,14 @@ export const addTask = createAsyncThunk('add/task',
 export const deleteTask = createAsyncThunk('delete/task',
     async (payload) => {
         const { body, auth } = payload;
-        const fetch = await FetchData('/lists/task/delete', body, {}, auth);
+        const fetch = await FetchDataThunk('/lists/task/delete', body, {}, auth);
         return fetch;
     })
 
 export const editTask = createAsyncThunk('edit/task',
     async (payload) => {
         const { body, auth } = payload;
-        const fetch = await FetchData('/lists/task/edit', body, {}, auth);
+        const fetch = await FetchDataThunk('/lists/task/edit', body, {}, auth);
         return fetch;
     }
 )
@@ -47,7 +47,7 @@ export const editTask = createAsyncThunk('edit/task',
 export const editStatus = createAsyncThunk('status/task',
     async (payload) => {
         const { body, auth } = payload;
-        const fetch = await FetchData('/lists/task/edit/status', body, {}, auth);
+        const fetch = await FetchDataThunk('/lists/task/edit/status', body, {}, auth);
         return fetch;
     }
 )
@@ -62,11 +62,14 @@ const ListSlice = createSlice({
         }
     },
     extraReducers: (builder) => {
-        BuilderHanlde(builder, addList, (state, action) => {
-            const { message, data } = action.payload;
-            toast.success(message)
-            state.data = [data, ...state.data]
-        })
+        BuilderHanlde(builder, addList,
+            (state, action) => {
+                const { message, data } = action.payload;
+                toast.success(message)
+                state.data = [data, ...state.data]
+            },
+            (state, action) => {
+            })
         BuilderHanlde(builder, addTask, (state, action) => {
             const { message, data } = action.payload;
             toast.success(message)
