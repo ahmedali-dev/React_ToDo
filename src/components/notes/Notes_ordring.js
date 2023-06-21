@@ -1,21 +1,21 @@
 import { useEffect, useState } from "react";
 import style from './NoteCom.module.scss'
 import Note from "./Note_item";
-import { createMotionComponent } from "framer-motion";
+import { useSelector } from "react-redux";
 
 const NotesOrdring = ({ data, ...props }) => {
 
     const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms))
+    const selector = useSelector(state => state.Notes);
     const [orderRun, setOrderRun] = useState(true);
     const [rows, setRow] = useState([]);
 
     const ordaringNote = (event = null) => {
-
         let pagex = null;
 
         if (!event) {
             console.log('event fnot found')
-            setOrderRun(false);
+            if (data.length > 0) setOrderRun(false);
             pagex = window.innerWidth > 1200 ? 1200 : window.innerWidth;
         } else {
             pagex = event.currentTarget.innerWidth > 1200 ? 1200 : event.currentTarget.innerWidth;
@@ -52,7 +52,7 @@ const NotesOrdring = ({ data, ...props }) => {
 
         }
         setRow(content)
-        // console.log(content)
+        console.log(content)
 
     }
     useEffect(() => {
@@ -60,10 +60,16 @@ const NotesOrdring = ({ data, ...props }) => {
             if (orderRun) ordaringNote();
             window.addEventListener('resize', ordaringNote)
         } catch (error) {
-            console.log(window)
+            console.log(error)
         }
-    }, []);
+    }, [data]);
 
+
+    useEffect(() => {
+        ordaringNote();
+    }, [data])
+
+    console.log(data)
     const css = (Class = '') => Class.length > 0 ? style[`NotesRows_${Class}`] : style.NotesRows;
     return <div className={css()}>
         {rows && rows.map(row => {
@@ -72,7 +78,7 @@ const NotesOrdring = ({ data, ...props }) => {
                 {row.map(note => <Note
                     id={note.id}
                     title={note.title}
-                    note={note.content}
+                    note={note.note}
                 />)}
             </div>
         })}

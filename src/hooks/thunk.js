@@ -84,3 +84,20 @@ export const BuilderHanlde = (builder, func, callback = null, err = null) => bui
         console.log(action)
         auth.logout();
     });
+
+
+export const BuilderHanldeV2 = (builder, func, callback = null, err = null) => builder
+    .addCase(func.pending, (state) => {
+        state.loading = true;
+    })
+    .addCase(func.fulfilled, (state, action) => {
+        state.loading = false;
+        if (!callback) return;
+        callback(state, action);
+    })
+    .addCase(func.rejected, (state, action) => {
+        state.loading = false;
+        const { auth } = action.meta.arg;
+        if (action.payload.response.data.message && action.payload.response.data.message == 'Invalid token') auth.logout();
+        if (err) err(state, action, auth, action.payload.response);
+    });

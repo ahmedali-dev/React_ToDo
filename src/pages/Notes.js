@@ -1,9 +1,14 @@
 import React, { useRef } from 'react';
 import NotesOrdring from '../components/notes/Notes_ordring';
 import NoteForm from '../components/notes/NoteForm';
-import { Add } from '../components/icons/icons';
-import { Link } from 'react-router-dom';
-
+import { Add, Note } from '../components/icons/icons';
+import { Link, useParams } from 'react-router-dom';
+import style from './assets/Notes.module.scss'
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { getNotes } from '../Store/slices/NotesSlice';
+import { useContext } from 'react';
+import authContent from './../Store/Auth-context'
 const dummyNotes = [
     {
         id: 1,
@@ -80,16 +85,39 @@ const dummyNotes = [
 
 
 const Notes = ({ add }) => {
+    const css = (Class = '') => Class.length > 0 ? style[`Notes_${Class}`] : style.Notes;
+    const auth = useContext(authContent)
+    const params = useParams();
 
+    const selected = useSelector(state => state.Notes)
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(getNotes({ body: {}, auth }))
+    }, []);
+
+    let getNote = null
+    if (params.id) {
+        getNote = selected.notes.find(note => note.id == params.id);
+        console.log(getNote);
+    }
     return (
-        <div>
+        <div className={css()}>
+            {/* <button
+                onClick={e => dispatch(getNotes({ body: {}, auth }))}
+            >click</button> */}
             {add && <NoteForm />}
-            <div>
-                <Link to={'/notes/add'}>
-                    <Add />
-                </Link>
-            </div>
-            <NotesOrdring data={dummyNotes} />
+            {params.id && <NoteForm note={getNote} />}
+
+            <Link
+                to={'/notes/add'}
+                className={css('addNote')}
+            >
+                <Add />
+                <span>Add New Note</span>
+            </Link>
+
+            <NotesOrdring data={selected.notes} />
         </div>
 
     );

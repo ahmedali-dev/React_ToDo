@@ -32,6 +32,7 @@ const App = (props) => {
             <Route path="/notes" >
               <Route index element={<Notes />} />
               <Route path="add" element={<Notes add={true} />} />
+              <Route path=":id" element={<Notes />} />
             </Route>
           </Route>
 

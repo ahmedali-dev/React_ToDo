@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const instance = axios.create({
-  baseURL: "https://nodetodo--ahmedali-dev.repl.co/",
+  baseURL: "http://localhost:5000",
   method: "POST"
 });
 
