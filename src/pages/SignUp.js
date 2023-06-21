@@ -20,6 +20,7 @@ const SignUp = () => {
 
   if (auth.isLoggedIn) return navigate('/');
 
+  const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms))
   const submit = async (values, actions) => {
     setLoading(true);
     try {
@@ -39,7 +40,7 @@ const SignUp = () => {
       toast.success(data.message);
 
       // auth.login(data.token, data.image);
-
+      await delay(1000)
       const verifyUser = await axios('/auth/completeRegister', {
         headers: {
           "Authorization": `baber ${data.token}`
