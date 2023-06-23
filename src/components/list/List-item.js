@@ -42,6 +42,7 @@ const List_Item = ({ id, title, auth, status, ...props }) => {
         idTask: id,
         idList: params.id,
         task: editValue,
+        action: "task",
       };
 
       dispatch(EditTask({ body, auth }));
@@ -54,7 +55,7 @@ const List_Item = ({ id, title, auth, status, ...props }) => {
     const body = {
       idTask: id,
       idList: params.id,
-      status: check,
+      action: "status",
     };
     console.log("body before update", body);
 

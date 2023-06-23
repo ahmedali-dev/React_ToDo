@@ -108,7 +108,7 @@ const ListSlice = createSlice({
         state.tasks = action.payload.result;
       },
       (state, action) => {
-        console.log(action);
+        console.log(action.payload);
       }
     );
 
@@ -116,20 +116,18 @@ const ListSlice = createSlice({
       builder,
       EditTask,
       (state, action) => {
-        console.log(action);
+        console.log("hello");
+        const payload = action.payload;
         const { task, idTask, status } = action.meta.arg.body;
-        console.log(status);
-        const TaskIndex = state.tasks.findIndex((index) => index._id == idTask);
-        if (!TaskIndex) return;
-        if (
-          action.payload?.message == "Task updated successfully" &&
-          status !== undefined
-        ) {
-          state.tasks[TaskIndex].status = !state.tasks[TaskIndex].status;
-          return;
-        }
+        const NewTasksUpdate = state.tasks.map((task) => {
+          if (task._id === idTask) {
+            task.status = payload.getTask.status;
+            task.task = payload.getTask.task;
+          }
+          return task;
+        });
 
-        state.tasks[TaskIndex].task = task;
+        state.tasks = NewTasksUpdate;
       },
       (state, action) => {
         console.log(action);
