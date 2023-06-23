@@ -8,10 +8,9 @@
   transform: translateX(-50%);
   width: 100%;
   padding: 1rem;
-  border-radius: .4rem;
+  border-radius: 0.4rem;
   box-shadow: var(--shadowBlue);
   z-index: 2;
-
 
   &_logo {
     display: none;
@@ -22,7 +21,6 @@
     align-items: center;
     justify-content: space-around;
     gap: 2rem;
-
 
     &_item {
       &:not(:last-child) {
@@ -35,7 +33,6 @@
 
       //padding: .4rem;
 
-
       a {
         width: var(--width);
         height: var(--width);
@@ -46,12 +43,12 @@
         text-align: center;
 
         span {
-          font-size: .7rem;
+          font-size: 0.7rem;
         }
 
         svg {
           //stroke-width: calc(var(--width) / 2);
-          padding: .4rem;
+          padding: 0.4rem;
         }
 
         .user {
@@ -71,7 +68,7 @@
         }
 
         svg {
-          fill: var(--blue)
+          fill: var(--blue);
         }
       }
     }
@@ -105,8 +102,6 @@
           }
         }
       }
-
-
     }
 
     &_content {
@@ -123,17 +118,14 @@
 
         //padding: .4rem;
 
-
         a {
           width: unset;
           flex-flow: row;
           padding: 1rem;
-          border-radius: .5rem;
-
+          border-radius: 0.5rem;
 
           span {
             font-size: 1.2rem;
-
           }
 
           svg {
@@ -141,7 +133,6 @@
             height: 3rem !important;
             //padding: .8rem;
           }
-
         }
 
         &_linkActive {
@@ -153,11 +144,10 @@
           }
 
           svg {
-            fill: var(--white)
+            fill: var(--white);
           }
         }
       }
     }
   }
 }
-

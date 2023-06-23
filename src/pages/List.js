@@ -1,164 +1,118 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useEffect, useContext } from "react";
 import List_Side from "./../components/list/List-side";
-import List_Item from './../components/list/List-item'
+import List_Item from "./../components/list/List-item";
 import { useParams } from "react-router-dom";
-import css from './assets/Lists.module.scss';
-import Input from "../components/UI/Input";
-import Button from "../components/UI/Button";
-import { Add, Mark } from "../components/icons/icons";
+import css from "./assets/Lists.module.scss";
 import { useDispatch, useSelector } from "react-redux";
-import { FetchData } from "../hooks/thunk";
-import { useContext } from "react";
 import AuthContext from "../Store/Auth-context";
-import { addTask, fetchLists } from "../Store/slices/ListSlice";
+import { getLists } from "../Store/slices/ListSlice";
 import { toast } from "react-hot-toast";
+import { AddTask } from "../Store/slices/TaskSlice";
+import ListForm from "../components/list/List-form";
 
-const classname = 'lContainer_';
-const listcss = (Class) => css[classname + Class]
+const classname = "lContainer_";
+const listcss = (Class) => css[classname + Class];
 const List = ({ ...props }) => {
+  const params = useParams();
+  const container = (Class) => css[`lContainer_${Class}`];
 
+  const auth = useContext(AuthContext);
 
-    const inputEdit = useRef(null);
-    const addinputref = useRef(null)
-    const [showAdd, setshowAdd] = useState(false);
-    const params = useParams();
-    const container = (Class) => css[`lContainer_${Class}`];
+  // _____________________________
+  // toolkit code
+  // _____________________________
 
-    const auth = useContext(AuthContext);
+  const { lists, tasks, error, loading } = useSelector((state) => state.List);
+  const dispatch = useDispatch();
 
-    // _____________________________
-    // toolkit code
-    // _____________________________
-
-
-    const { data, error, loading } = useSelector(state => state.List);
-    const dispatch = useDispatch();
+  useEffect(() => {
     //fetch lists from api
-    useEffect(() => {
+    if (lists.length === 0) dispatch(getLists({ body: {}, auth }));
+    console.log("use");
+  }, []);
 
-        if (data.length == 0) {
+  const createNewTask = (task) => {
+    const payload = { body: { task, idList: params.id }, auth };
+    dispatch(AddTask(payload));
+  };
+  // _____________________________
+  // _____________________________
 
-            (async () => {
-                try {
-                    const req = await FetchData('/lists', {}, {}, auth)
+  if (loading) {
+    toast.loading("please wait");
+  } else {
+    setTimeout(() => {
+      toast.dismiss();
+    }, 2000);
+  }
 
-                    dispatch(fetchLists({ data: req.data }))
+  console.log(lists);
 
+  if (params.id) {
+    const getTasks = tasks.filter((task) => task.listId == params.id);
+    const getList = lists.find((list) => list._id == params.id);
+    console.log("my tasks is =>", getTasks);
+    const taskss = () => {
+      try {
+        return getTasks;
+      } catch (error) {
+        return [];
+      }
+    };
+    const NameList = () => {
+      try {
+        return getList.name;
+      } catch (error) {
+        return [];
+      }
+    };
 
-                } catch (error) {
-                    const { message } = error.response.data;
-                    if (message) {
-                        auth.logout();
-                    }
+    // const tasks = getList.task ?? [];
+    return (
+      <div className={css.lContainer}>
+        <List_Side
+          data={lists}
+          auth={auth}
+          sideActive={false}
+          listName={NameList()}
+        />
 
-                }
-
-            })();
-        }
-    }, []);
-
-
-    const createNewTask = () => {
-        setshowAdd(false);
-        const inputvalue = addinputref.current?.value;
-        if (inputvalue.length >= 3 && inputvalue.length < 32) {
-            console.log('start')
-            const payload = { body: { task: inputvalue, idTask: params.id }, auth }
-            dispatch(addTask(payload));
-        }
-    }
-    // _____________________________
-    // _____________________________
-
-
-
-    const sideCom = (active = false, listName) => <List_Side data={data} auth={auth} sideActive={active} listName={listName} />;
-
-    if (params.id) {
-        const getList = data.find(list => list.id == params.id);
-        const taskss = () => {
-            try {
-                return getList.task ?? [];
-            } catch (error) {
-                setTimeout(() => getList.task, 1000);
+        <div className={container("row")}>
+          <ListForm
+            nameList={NameList}
+            style={listcss}
+            CreateHanlder={createNewTask}
+            value={
+              <span>
+                Add new <strong>Task</strong>
+              </span>
             }
-        };
-        const name = () => {
-            try {
-                return getList.name ?? '';
-            } catch (error) {
-                setTimeout(() => getList.name, 1000);
-            }
-        };
-
-
-        const addbtn = <div key={'add_button_event_item'} className={listcss('addbtn')}>
-            <h3 className={listcss('addbtn_name')}>{name()}</h3>
-            <Button classname={listcss('addbtn_btn')} onClick={() => setshowAdd(true)}>
-                <Add /> <span>Add new <strong>task</strong></span>
-            </Button>
-
-        </div>;
-
-        const addComp = <div key={'add_new_list_item'} className={listcss('add')}>
-            <Input ref={addinputref} placeholder='add new list' classname={listcss('add_input')} />
-            <Button classname={listcss('add_button')} onClick={createNewTask}>
-                <Mark />
-            </Button>
+          />
+          {taskss().length > 0 ? (
+            taskss().map((task) => (
+              <List_Item
+                key={task._id}
+                auth={auth}
+                id={task._id}
+                title={task.task}
+                status={task.status}
+              />
+            ))
+          ) : (
+            <h3>Please add any task</h3>
+          )}
         </div>
-
-        // const tasks = getList.task ?? [];
-        return <div className={css.lContainer}>
-            {sideCom(false, name())}
-            <div className={container('row')}>
-                {/* add new item button*/}
-                {!showAdd && addbtn}
-
-                {/* add collection input */}
-                {showAdd && addComp}
-
-                {taskss() ?
-                    taskss().map(task =>
-                        <List_Item
-                            auth={auth}
-                            id={task.id}
-                            title={task.task}
-                            status={task.status}
-                        />)
-                    : <h3>please add any task</h3>}
-            </div>
-        </div>
-
-    }
-    return <div className={css.lContainer}>
-        {sideCom(true)}
-        <div className={container('row')} >
-            <h4>Select any collection</h4>
-        </div>
-    </div >
-
-
-
-}
-
-// style={{ display: 'flex', gap: '1rem', padding: "1rem" }
-{/* <MDEditor
-onChange={(newValue = "") => setValue(newValue)}
-textareaProps={{
-    placeholder: "Please enter Markdown text"
-}}
-height={500}
-value={value}
-previewOptions={{
-    components: {
-        code: Code
-    }
-}}
-/> */}
+      </div>
+    );
+  }
+  return (
+    <div className={css.lContainer}>
+      <List_Side data={lists} auth={auth} sideActive={true} />
+      <div className={container("row")}>
+        {/* <h4>Select any collection</h4> */}
+      </div>
+    </div>
+  );
+};
 
 export default List;
-
-
-
-
-

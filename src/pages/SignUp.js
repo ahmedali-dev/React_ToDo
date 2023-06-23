@@ -10,18 +10,17 @@ import authImage from "./../components/icons/authImage.png";
 import Reload from "../components/Reloading/Reload";
 import { toast } from "react-hot-toast";
 import axios from "../hooks/axios";
-
+import { delay } from "../helper/delay";
 
 const SignUp = () => {
   const [loading, setLoading] = useState(false);
   const auth = useContext(AuthContext);
   const navigate = useNavigate();
 
+  if (auth.isLoggedIn) return navigate("/");
 
-  if (auth.isLoggedIn) return navigate('/');
-
-  const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms))
   const submit = async (values, actions) => {
+    actions.setSubmitting(true);
     setLoading(true);
     try {
       const req = await axios.post("/auth/signup", {
@@ -39,18 +38,7 @@ const SignUp = () => {
 
       toast.success(data.message);
 
-      // auth.login(data.token, data.image);
-      await delay(1000)
-      const verifyUser = await axios('/auth/completeRegister', {
-        headers: {
-          "Authorization": `baber ${data.token}`
-        }
-      });
-
-      toast.success(verifyUser.data.message);
-
-      navigate("/auth/signin");
-
+      return navigate("/auth/signin");
     } catch (e) {
       setLoading(false);
 
@@ -64,10 +52,10 @@ const SignUp = () => {
         });
         return;
       }
-
     }
 
     setLoading(false);
+    actions.setSubmitting(true);
   };
   return (
     <div>
@@ -153,14 +141,17 @@ const SignUp = () => {
                       ? formik.errors.password
                       : null
                   }
-                // defaultValue={password}
-                // error={passwordError && passwordError}
+                  // defaultValue={password}
+                  // error={passwordError && passwordError}
                 />
                 {/*text={"Signin"}*/}
                 <Button
-                  className={css.formGroup_btn}
+                  className={`${css.formGroup_btn} ${
+                    formik.isSubmitting && css.formGroup_btn_disable
+                  }`}
                   type={"submit"}
                   classname={css.formGroup}
+                  disabled={formik.isSubmitting}
                 >
                   {loading ? <Reload /> : "SignIn"}
                 </Button>

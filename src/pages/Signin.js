@@ -17,6 +17,7 @@ const Signin = () => {
 
   const submit = async (values, actions) => {
     setLoading(true);
+    actions.setSubmitting(true);
 
     try {
       const req = await instance.post("/auth/signin", {
@@ -35,7 +36,6 @@ const Signin = () => {
 
       const { data } = e.response;
 
-
       if (data.message) toast.error(data?.message);
       if (data.error) toast.error(data?.error);
       if (data.errors) {
@@ -45,10 +45,9 @@ const Signin = () => {
         });
         return;
       }
-
-
     }
     setLoading(false);
+    actions.setSubmitting(false);
   };
 
   return (
@@ -114,8 +113,8 @@ const Signin = () => {
                       ? formik.errors.password
                       : null
                   }
-                // defaultValue={password}
-                // error={passwordError && passwordError}
+                  // defaultValue={password}
+                  // error={passwordError && passwordError}
                 />
                 <div className={css.formGroup}>
                   <Link
@@ -127,9 +126,12 @@ const Signin = () => {
                 </div>
                 {/*text={"Signin"}*/}
                 <Button
-                  className={css.formGroup_btn}
+                  className={`${css.formGroup_btn} ${
+                    formik.isSubmitting && css.formGroup_btn_disable
+                  }`}
                   type={"submit"}
                   classname={css.formGroup}
+                  disabled={formik.isSubmitting}
                 >
                   {loading ? <Reload /> : "SignIn"}
                 </Button>

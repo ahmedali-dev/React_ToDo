@@ -33,11 +33,17 @@
     text-decoration: line-through;
   }
   &.active {
-    background-color: var(--blue);
+    background-image: linear-gradient(45deg, var(--blueback), var(--blueLight));
+    // background-position: 100%;
+    background-position: left;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    animation: completeAnim 0.4s linear;
   }
 
-  &.active > &_title {
-    color: var(--white);
+  &.active &_title {
+    color: var(--green);
+    text-decoration: line-through;
   }
 
   &_checkbox {
@@ -49,13 +55,13 @@
       }
 
       input:checked + label {
-        border: 0.2rem solid var(--redLight);
+        border: 0.2rem solid var(--green);
 
         span {
           position: absolute;
           display: block;
           height: 0.2rem;
-          background: var(--redLight);
+          background: var(--green);
           border-radius: 1.4rem;
 
           &:first-child {
@@ -121,6 +127,34 @@
       }
     }
   }
+
+  &.active &_options {
+    &_option:first-child {
+      svg {
+        path {
+          fill: var(--white);
+        }
+      }
+    }
+  }
+}
+
+@keyframes completeAnim {
+  0% {
+    background-size: 0%;
+  }
+  25% {
+    background-size: 25%;
+  }
+  50% {
+    background-size: 50%;
+  }
+  75% {
+    background-size: 75%;
+  }
+  100% {
+    background-size: 100%;
+  }
 }
 
 // ______________________________________________________________________
@@ -130,7 +164,8 @@
 .side {
   width: 98vw;
   margin: 1rem auto;
-  height: 98vh;
+  min-height: 80vh;
+  max-height: 85vh;
   background: var(--white);
   border-radius: 0.7rem;
   box-shadow: var(--shadowGray);
@@ -158,6 +193,24 @@
     left: 50%;
     transform: translateX(-50%);
     z-index: 11;
+  }
+
+  &_activeNP {
+    width: 100%;
+    display: block;
+    position: unset;
+    left: unset;
+    transform: unset;
+  }
+
+  @media screen and (max-width: 768px) {
+    &_activeNP {
+      height: auto;
+      max-height: 88vh;
+      overflow: unset;
+      background: unset;
+      box-shadow: unset;
+    }
   }
 
   @media screen and (min-width: 768px) {

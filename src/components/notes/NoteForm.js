@@ -15,7 +15,7 @@ const NoteForm = ({ note, ...props }) => {
         note: ''
     })
 
-    console.log(data)
+
 
     const auth = useContext(AuthContext);
     let timeout = null;
@@ -90,14 +90,14 @@ const NoteForm = ({ note, ...props }) => {
                     to={'/notes'} className={css('ArrowBack')}><i className="las la-arrow-left"></i></Link>
                 <div
                     className={css('title')}
-                    onInput={(event) => { setDataFromInput(); console.log(data) }}
+                    onInput={(event) => { setDataFromInput(); }}
                     ref={titleRef}
                     contentEditable='true'
                     aria-label={data.title.length == 0 ? "Title..." : ''}>
 
                 </div>
                 <div
-                    onInput={(event) => { setDataFromInput(); console.log(data) }}
+                    onInput={(event) => { setDataFromInput(); }}
                     className={css('note')}
                     ref={noteRef}
                     contentEditable='true'

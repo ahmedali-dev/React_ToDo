@@ -94,6 +94,7 @@ const Notes = ({ add }) => {
 
     useEffect(() => {
         dispatch(getNotes({ body: {}, auth }))
+
     }, []);
 
     let getNote = null

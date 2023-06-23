@@ -52,7 +52,7 @@ const NotesOrdring = ({ data, ...props }) => {
 
         }
         setRow(content)
-        console.log(content)
+        // console.log(content)
 
     }
     useEffect(() => {
@@ -69,7 +69,7 @@ const NotesOrdring = ({ data, ...props }) => {
         ordaringNote();
     }, [data])
 
-    console.log(data)
+
     const css = (Class = '') => Class.length > 0 ? style[`NotesRows_${Class}`] : style.NotesRows;
     return <div className={css()}>
         {rows && rows.map(row => {

@@ -36,6 +36,14 @@
       flex-flow: column;
       gap: 0.5rem;
 
+      label {
+        order: 0;
+      }
+
+      p {
+        order: 2;
+      }
+
       &_input {
         width: 100%;
         height: 5.7rem;
@@ -68,6 +76,10 @@
         font-weight: 600;
         cursor: pointer;
         overflow: hidden;
+
+        &_disable {
+          background-color: var(--redLight);
+        }
 
         &:active,
         &:focus {
