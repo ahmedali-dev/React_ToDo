@@ -3,6 +3,7 @@ import { BuilderHanldeV2, FetchData } from "../../hooks/thunk";
 
 const initialState = {
   notes: [],
+  id: "",
   error: "",
 };
 
@@ -45,7 +46,11 @@ export const deleteNote = createAsyncThunk(
 const NotesSlice = createSlice({
   name: "notes",
   initialState,
-  reducers: {},
+  reducers: {
+    RemoveId: (state) => {
+      state.id = "";
+    },
+  },
   extraReducers: (builder) => {
     BuilderHanldeV2(
       builder,
@@ -58,16 +63,20 @@ const NotesSlice = createSlice({
       }
     );
     // ___________
-    // add new note
+    // add  new note
     // ___________
     BuilderHanldeV2(
       builder,
       addNote,
       (state, action) => {
         const { note, message } = action.payload;
+        const { setparams } = action.meta.arg;
+        console.log(setparams);
+        console.log(action);
         if (message === "note added") {
           state.notes.push(note);
-          return;
+          state.id = note._id;
+          setparams({ id: note._id });
         }
 
         state.notes = state.notes.map((n) => {
@@ -95,4 +104,5 @@ const NotesSlice = createSlice({
   },
 });
 
+export const { RemoveId } = NotesSlice.actions;
 export default NotesSlice.reducer;

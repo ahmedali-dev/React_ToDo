@@ -9,6 +9,17 @@ export const CollSvg = () => (
   </svg>
 );
 
+export const AddNote = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    height="48"
+    viewBox="0 -960 960 960"
+    width="48"
+  >
+    <path d="M450-234h60v-129h130v-60H510v-130h-60v130H320v60h130v129ZM220-80q-24 0-42-18t-18-42v-680q0-24 18-42t42-18h361l219 219v521q0 24-18 42t-42 18H220Zm331-554v-186H220v680h520v-494H551ZM220-820v186-186 680-680Z" />
+  </svg>
+);
+
 export const WishListSvg = () => (
   <>
     <svg
@@ -24,12 +35,7 @@ export const WishListSvg = () => (
 
 export const Mark = () => (
   <svg viewBox="0 0 7 6" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path
-      d="M1 2V5L6 1"
-      stroke="lightgreen"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
+    <path d="M1 2V5L6 1" strokeLinecap="round" strokeLinejoin="round" />
   </svg>
 );
 
@@ -104,5 +110,16 @@ export const Search = () => (
     width="48"
   >
     <path d="M796 935 533 672q-30 26-69.959 40.5T378 727q-108.162 0-183.081-75Q120 577 120 471t75-181q75-75 181.5-75t181 75Q632 365 632 471.15 632 514 618 554q-14 40-42 75l264 262-44 44ZM377 667q81.25 0 138.125-57.5T572 471q0-81-56.875-138.5T377 275q-82.083 0-139.542 57.5Q180 390 180 471t57.458 138.5Q294.917 667 377 667Z" />
+  </svg>
+);
+
+export const Profile = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    height="48"
+    viewBox="0 -960 960 960"
+    width="48"
+  >
+    <path d="M480-481q-66 0-108-42t-42-108q0-66 42-108t108-42q66 0 108 42t42 108q0 66-42 108t-108 42ZM160-160v-94q0-38 19-65t49-41q67-30 128.5-45T480-420q62 0 123 15.5t127.921 44.694q31.301 14.126 50.19 40.966Q800-292 800-254v94H160Zm60-60h520v-34q0-16-9.5-30.5T707-306q-64-31-117-42.5T480-360q-57 0-111 11.5T252-306q-14 7-23 21.5t-9 30.5v34Zm260-321q39 0 64.5-25.5T570-631q0-39-25.5-64.5T480-721q-39 0-64.5 25.5T390-631q0 39 25.5 64.5T480-541Zm0-90Zm0 411Z" />
   </svg>
 );

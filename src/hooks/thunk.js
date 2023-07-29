@@ -1,15 +1,22 @@
 // API.js
 import instance from "./../hooks/axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
+
 import { isExpired, decodeToken } from "react-jwt";
 
-export const FetchData = async (url, requestData = {}, headers = {}, auth) => {
+export const FetchData = async (
+  url,
+  requestData = {},
+  headers = {},
+  auth = null
+) => {
   try {
-    headers = {
-      authorization: `Bearer ${auth.token}`,
-      "Content-Type": "application/json",
-      ...headers,
-    };
+    if (auth)
+      headers = {
+        authorization: `Bearer ${auth.token}`,
+        "Content-Type": "application/json",
+        ...headers,
+      };
     const response = await instance.post(url, requestData, { headers });
     return response.data;
   } catch (error) {
@@ -103,3 +110,30 @@ export const BuilderHanldeV2 = (builder, func, callback = null, err = null) =>
       //   auth.logout();
       if (err) err(state, action, auth, action.payload.response);
     });
+
+export const BuilderHandleV3 = (builder, func, callback = null) =>
+  builder
+    .addCase(func.pending, (state) => {
+      state.status = "loading";
+    })
+    .addCase(func.fulfilled, (state, action) => {
+      state.status = "succeeded";
+      state.error = null;
+      if (!callback) return;
+      console.log(action);
+      callback(null, state, action);
+    })
+    .addCase(func.rejected, (state, action) => {
+      state.status = "failed";
+      if (!callback) return;
+      console.log(action);
+      callback(true, state, action);
+    });
+// const { auth } = action.meta.arg;
+// console.log(action);
+// // if (
+// //   action.payload.response.data?.tokenMessage &&
+// //   action.payload.response.data?.tokenMessage == "Invalid token"
+// // )
+// //   auth.logout();
+// if (err) err(state, action, auth, action.payload.response);

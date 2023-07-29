@@ -1,9 +1,8 @@
 import axios from "axios";
 
-const url = "https://sppy53-5000.csb.app/";
-const url2 = "http://localhost:5000";
+const url2 = "https://node-to-do-alpha.vercel.app/";
 const instance = axios.create({
-  baseURL: url,
+  baseURL: url2,
   method: "POST",
 });
 

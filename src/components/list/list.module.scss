@@ -186,15 +186,6 @@
     border-radius: 1rem;
   }
 
-  &_active {
-    display: block;
-    position: fixed;
-    top: 0rem;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 11;
-  }
-
   &_activeNP {
     width: 100%;
     display: block;
@@ -206,10 +197,27 @@
   @media screen and (max-width: 768px) {
     &_activeNP {
       height: auto;
-      max-height: 88vh;
+      max-height: unset;
+      min-height: unset;
       overflow: unset;
       background: unset;
       box-shadow: unset;
+    }
+
+    &_active {
+      height: 100vh;
+      max-height: unset;
+      min-height: unset;
+      margin: unset;
+      border-radius: unset;
+      backdrop-filter: blur(1rem);
+      background: #ffffff24;
+      display: block;
+      position: fixed;
+      top: 0rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 11;
     }
   }
 
@@ -219,10 +227,12 @@
     margin-left: 1rem;
     margin: auto;
 
-    &_active {
-      position: unset;
-      transform: unset;
-    }
+    // &_active {
+    //   backdrop-filter: unset;
+    //   background: unset;
+    //   position: unset;
+    //   transform: unset;
+    // }
   }
 
   &_link {
@@ -231,6 +241,7 @@
     margin-top: 0.7rem;
     border-radius: 0.7rem;
     color: var(--blue);
+    flex: auto 1 1;
     // backdrop-filter: blur(1rem);
 
     &:hover {
@@ -242,6 +253,49 @@
       color: var(--white);
       background: var(--blueLight);
       box-shadow: var(--shadowBlue);
+    }
+  }
+
+  &_edit {
+    margin-top: 0.7rem;
+    flex: auto 1 1;
+
+    &_input {
+      width: 100%;
+      input {
+        width: 100%;
+        border: 0.2rem solid var(--gray);
+        outline: none;
+      }
+    }
+  }
+
+  &_row {
+    display: flex;
+    align-items: center;
+    position: relative;
+  }
+  &_options {
+    display: flex;
+    position: absolute;
+    top: 50%;
+    right: 1rem;
+    transform: translateY(-31%);
+    // background: blue;
+    gap: 1rem;
+    &_option {
+      width: 2.3rem;
+      height: 2.3rem;
+      cursor: pointer;
+
+      &:hover {
+        scale: 1.1;
+      }
+      &:last-child {
+        path {
+          fill: var(--redLight);
+        }
+      }
     }
   }
 

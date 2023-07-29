@@ -1,26 +1,33 @@
+import Cookies from "js-cookie";
 import { createContext, useState } from "react";
 
 const AuthContext = createContext({
   token: "",
   isLoggedIn: false,
-  login: (token) => { },
-  logout: () => { },
+  login: (token) => {},
+  logout: () => {},
 });
 
 export const AuthProvider = (props) => {
-  const initialToken = localStorage.getItem("token");
+  const initialToken = Cookies.get("access_token");
   const [token, setToken] = useState(initialToken);
 
   const userIsLogin = !!token;
 
-  const loginHandler = (token, image) => {
+  const loginHandler = (token) => {
     setToken(token);
-    localStorage.setItem("token", token);
+
+    Cookies.set("access_token", token, {
+      expires: 30,
+      secure: true,
+      sameSite: "strict",
+    });
   };
 
   const logoutHandler = () => {
     setToken(null);
-    localStorage.removeItem("token");
+    window.location.reload();
+    Cookies.remove("access_token");
   };
 
   const contextValue = {

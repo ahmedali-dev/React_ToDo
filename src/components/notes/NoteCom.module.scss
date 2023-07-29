@@ -125,20 +125,31 @@
     content: attr(aria-label);
   }
 
-  &_ArrowBack {
-    // width: 2rem;
-    // height: 2rem;
-    display: block;
-    margin-bottom: 2rem;
-    position: sticky;
-    top: 0;
-    background: white;
-    box-shadow: var(--shadowGray);
-    border-radius: 0.7rem;
-    width: max-content;
-    z-index: 3;
-    i {
-      font-size: 2.5rem;
+  &_tool {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem;
+    &_ArrowBack {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      position: sticky;
+      top: 0;
+      background: white;
+      box-shadow: var(--shadowGray);
+      border-radius: 0.7rem;
+      width: max-content;
+      z-index: 3;
+      i {
+        font-size: 2.5rem;
+      }
+
+      &:first-child {
+        color: var(--redLight);
+      }
     }
   }
 
@@ -164,12 +175,12 @@
     border-radius: 0.7rem;
     box-shadow: var(--shadowBlue);
     overflow-y: auto;
-    top: 50%;
+    top: 25%;
     left: 50%;
     transform: translate(-50%, -50%);
 
-    &_ArrowBack {
-      display: none;
-    }
+    // &_ArrowBack {
+    //   display: none;
+    // }
   }
 }

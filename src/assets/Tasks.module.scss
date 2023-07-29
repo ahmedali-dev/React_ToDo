@@ -1,0 +1,302 @@
+.tasks {
+  width: 100%;
+
+  @media screen and (max-width: 768px) {
+    padding: 1rem;
+  }
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  //   background: blueviolet;
+  padding: 0 1rem;
+  margin-bottom: 2rem;
+
+  &_name {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    div {
+      width: 3rem;
+      height: 3rem;
+      background: var(--blue);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 0.8rem;
+      box-shadow: var(--shadowBlue);
+      cursor: pointer;
+      svg {
+        width: 2rem;
+        height: 2rem;
+        fill: var(--white);
+      }
+    }
+
+    &_AddActive {
+      background: var(--redLight) !important;
+      svg {
+        fill: var(--blueback) !important;
+      }
+    }
+  }
+
+  &_filter {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+
+    a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      background: var(--white);
+      border-radius: 0.5rem;
+      box-shadow: var(--shadowGray);
+    }
+
+    &_linkActive {
+      background-color: var(--blue) !important;
+      color: var(--white);
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    flex-flow: column;
+    align-items: flex-start;
+    gap: 2rem;
+    margin-top: 1rem;
+
+    &_name {
+      width: 100%;
+      justify-content: space-between;
+    }
+  }
+}
+
+.TaskCheckBox {
+  // background: blue;
+
+  input {
+    display: none;
+  }
+
+  input:checked + label {
+    border: 0.2rem solid var(--green);
+    background: var(--green);
+
+    span {
+      position: absolute;
+      display: block;
+      height: 0.2rem;
+      background: var(--white);
+      border-radius: 1.4rem;
+
+      &:first-child {
+        width: 0.8rem;
+        top: 63%;
+        left: 26%;
+        transform: translate(-50%, -50%) rotate(56deg);
+      }
+
+      &:last-child {
+        width: 1.7rem;
+        top: 53%;
+        left: 58%;
+        transform: translate(-50%, -50%) rotate(138deg);
+      }
+    }
+  }
+
+  label {
+    background: none;
+    border: 0.2rem solid var(--blue);
+    width: 2.8rem;
+    height: 2.8rem;
+    border-radius: 50%;
+    display: block;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    position: relative;
+    transition: width 0.4s ease-in-out;
+    span {
+      transition: width 0.4s ease-in-out;
+      &:first-child {
+        transition-delay: 0.2s;
+      }
+      &:last-child {
+        transition-delay: 0.4s;
+      }
+    }
+  }
+}
+
+.task {
+  display: flex;
+  align-items: center;
+  margin-top: 1rem;
+  background: var(--white);
+  padding: 1rem;
+  border-radius: 0.7rem;
+  .content {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    // justify-content: center;
+    gap: 1rem;
+  }
+
+  &_options {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    @media screen and (min-width: 768px) {
+      opacity: 0;
+    }
+    div {
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 3rem;
+      height: 3rem;
+
+      &:hover {
+        transform: translateY(-0.2rem) scale(1.2);
+      }
+      &:nth-child(2) {
+        svg {
+          fill: var(--redLight);
+        }
+      }
+      svg {
+        width: 2rem;
+        height: 2rem;
+      }
+    }
+  }
+
+  &:hover > &_options {
+    opacity: 1;
+  }
+
+  &_active {
+    background: var(--disabled);
+
+    .content {
+      h4 {
+        text-decoration: line-through;
+      }
+    }
+  }
+}
+
+.TaskEditForm {
+  margin-top: 1rem;
+  width: 100%;
+  position: relative;
+
+  .inputEdit {
+    width: 100%;
+    input {
+      width: 100%;
+      margin: 1rem 0;
+      border-color: var(--blue);
+
+      &:focus {
+        outline-color: transparent;
+      }
+    }
+  }
+
+  .btnEdit {
+    // background: black;
+    position: absolute;
+    top: 50%;
+    right: 1rem;
+    transform: translateY(-50%);
+    button {
+      width: 3rem;
+      height: 3rem;
+      border-radius: 50%;
+      background: var(--blue);
+      border: none;
+      transition: 0.5s ease-in-out;
+      padding: 0.7rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      &.valid {
+        transform: scale(1.1) rotate(360deg);
+      }
+      &.notvalid {
+        background: var(--redLight);
+      }
+      svg {
+        width: 2rem;
+        height: 2rem;
+        stroke: var(--white);
+      }
+    }
+  }
+}
+
+.addTask {
+  // position: absolute;
+
+  // position: sticky;
+  // bottom: 1rem;
+  // left: 50%;
+  // transform: translateX(-50%);
+  width: 100%;
+  position: relative;
+
+  .newTaskInput {
+    width: 100%;
+    input {
+      width: 100%;
+      margin: 1rem 0;
+      border-color: var(--blue);
+
+      &:focus {
+        outline-color: transparent;
+      }
+    }
+  }
+
+  .newTaskBtn {
+    position: absolute;
+    top: 50%;
+    right: 1rem;
+    transform: translateY(-50%);
+    button {
+      width: 3rem;
+      height: 3rem;
+      border-radius: 50%;
+      background: var(--blue);
+      border: none;
+      transition: 0.5s ease-in-out;
+      padding: 0.4rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      &.valid {
+        transform: scale(1.1) rotate(360deg);
+      }
+      &.notvalid {
+        background: var(--redLight);
+      }
+      svg {
+        width: 2rem;
+        height: 2rem;
+        fill: var(--white);
+      }
+    }
+  }
+}

@@ -1,0 +1,291 @@
+.lists {
+  //   background: rgb(165, 165, 184);
+  max-width: 1200px;
+  position: relative;
+  display: flex;
+
+  &_notSelect {
+    display: none;
+  }
+  @media screen and (min-width: 768px) {
+    margin: 2rem auto;
+    padding: 0 2rem;
+    gap: 2rem;
+
+    &_notSelect {
+      width: 100%;
+      display: block;
+    }
+  }
+}
+
+.list {
+  width: 100%;
+  padding: 1rem;
+  position: relative;
+  border-radius: 0.3rem;
+  transition: 0.4s ease-in-out;
+
+  &::-webkit-scrollbar {
+    width: 0.7rem;
+    background: var(--blue);
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: var(--redLight);
+    border-radius: 1rem;
+  }
+
+  @media screen and (max-width: 768px) {
+    &_flow {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      height: 100vh;
+      background: #ebebeb29;
+      backdrop-filter: blur(1rem);
+      border-radius: unset;
+      z-index: 11;
+      overflow-y: auto;
+      left: -100%;
+
+      &_active {
+        left: 0;
+      }
+    }
+  }
+
+  @media screen and (min-width: 768px) {
+    box-shadow: var(--shadowGray);
+  }
+
+  &_header {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 1rem;
+    margin-top: 1rem;
+    & > div {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 3rem;
+      height: 3rem;
+      background: var(--blue);
+      border-radius: 0.4rem;
+      padding: 0.3rem;
+      box-shadow: var(--shadowBlue);
+      cursor: pointer;
+      svg {
+        width: 3rem;
+        height: 3rem;
+        fill: var(--white);
+      }
+    }
+  }
+
+  &_close {
+    position: absolute;
+    top: 1.5rem;
+    right: 2rem;
+    width: 3rem;
+    height: 3rem;
+    background: var(--redLight);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: var(--shadowBlue);
+    svg {
+      width: 2rem;
+      height: 2rem;
+      fill: var(--blueback);
+    }
+
+    @media screen and (min-width: 768px) {
+      display: none;
+    }
+  }
+
+  @media screen and (min-width: 768px) {
+    width: 40rem;
+    height: calc(100vh - 10rem);
+    overflow-y: auto;
+    background: var(--white);
+  }
+}
+
+.wrap {
+  position: relative;
+  &:hover .option {
+    opacity: 1;
+  }
+  .item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1rem;
+    padding: 1rem 1rem 1rem 2rem;
+    border-radius: 0.4rem;
+    color: var(--blueback);
+    position: relative;
+    transition: 0.5s ease-in-out;
+    &::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 0.6rem;
+      transform: translateY(-50%);
+      width: 1rem;
+      height: 1rem;
+      background: var(--blue);
+      border-radius: 50%;
+    }
+
+    &:hover {
+      background: var(--whiteBlueLight);
+      color: var(--blueback);
+
+      &::after {
+        background: var(--redLight);
+      }
+    }
+    &_active {
+      background: var(--blueLight);
+      color: var(--white);
+
+      &::after {
+        background: var(--white) !important;
+      }
+    }
+
+    h3 {
+      width: 100%;
+    }
+  }
+
+  .editList {
+    display: flex;
+    position: relative;
+    margin-top: 1rem;
+    &_input {
+      width: 100%;
+      input {
+        width: 100%;
+      }
+    }
+    &_mark {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.7rem;
+      cursor: pointer;
+      width: 3rem;
+      height: 3rem;
+      background: var(--blue);
+      border-radius: 50%;
+      position: absolute;
+      top: 50%;
+      right: 1rem;
+      transform: translateY(-50%);
+      svg {
+        width: 2rem;
+        height: 2rem;
+        stroke: var(--white);
+      }
+
+      &_equal {
+        background: var(--redLight);
+      }
+    }
+  }
+
+  .option {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 1rem;
+    gap: 1rem;
+    @media screen and (min-width: 768px) {
+      opacity: 0;
+    }
+    span {
+      cursor: pointer;
+      transition: 0.4s ease-in-out;
+      svg {
+        width: 2rem;
+        height: 2rem;
+      }
+
+      &:hover {
+        transform: scale(1.1);
+      }
+
+      &:last-child {
+        svg {
+          fill: var(--redLight);
+        }
+      }
+    }
+  }
+}
+
+.form {
+  position: absolute;
+  top: -100%;
+  left: 0%;
+  width: 100%;
+  background: var(--white);
+  box-shadow: var(--shadowBlue);
+  padding: 0.4rem;
+  transition: all 0.4s ease-in-out;
+
+  &_active {
+    top: 0;
+  }
+
+  &_input {
+    width: 100%;
+    input {
+      width: 100%;
+      height: 5rem;
+      border-color: var(--blue);
+
+      &:focus {
+        outline-color: transparent;
+      }
+    }
+  }
+
+  &_button {
+    button {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      right: 2rem;
+      width: 3.5rem;
+      height: 3.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.4rem;
+      background: var(--redLight);
+      border: none;
+      border-radius: 50%;
+      svg {
+        width: 3.5rem;
+        height: 3.5rem;
+        fill: var(--white);
+      }
+    }
+
+    &_active {
+      button {
+        background: var(--green);
+      }
+    }
+  }
+}

@@ -1,34 +1,29 @@
 import React, { useContext } from "react";
-import css from "./Navbar.module.scss";
-import appicon from "./../components/icons/appicon.mp4";
-import { NavLink } from "react-router-dom";
-import { CollSvg, Note } from "../components/icons/icons";
+import css from "./../assets/Navbar.module.scss";
+import Logo from "../components/icons/Logo.png";
+import { Link, NavLink } from "react-router-dom";
+import { CollSvg, Note, Profile } from "../components/icons/icons";
 import authContext from "../Store/Auth-context";
+import { useJwt } from "react-jwt";
 
 const Navbar = () => {
   const ctx = useContext(authContext);
-  console.log(ctx.image);
+  const { isExpired } = useJwt(ctx.token);
+  if (isExpired) return ctx.logout();
   return (
-    <>
-      <nav className={css.nav}>
-        <div className={css.nav_logo}>
-          <div className={css.nav_logo_icon}>
-            <video
-              autoPlay={true}
-              loop={true}
-              muted={true}
-              playsInline
-              className={css.nav_logo_icon_video}
-            >
-              <source src={appicon} />
-            </video>
-          </div>
+    <header className={css.header}>
+      <nav className={css.header_nav}>
+        <div className={css.header_nav_logo}>
+          <Link to={"/"}>
+            <img src={Logo} alt={"website logo"} />
+            <h3>CateNote</h3>
+          </Link>
         </div>
-        <div className={css.nav_content}>
-          <div className={css.nav_content_item}>
+        <div className={css.header_nav_content}>
+          <div className={css.header_nav_content_item}>
             <NavLink
               className={({ isActive }) => {
-                return isActive ? css.nav_content_item_linkActive : null;
+                return isActive ? css.header_nav_content_item_linkActive : null;
               }}
               to={"/lists"}
             >
@@ -37,10 +32,10 @@ const Navbar = () => {
             </NavLink>
           </div>
 
-          <div className={css.nav_content_item}>
+          <div className={css.header_nav_content_item}>
             <NavLink
               className={({ isActive }) => {
-                return isActive ? css.nav_content_item_linkActive : null;
+                return isActive ? css.header_nav_content_item_linkActive : null;
               }}
               to={"/notes"}
             >
@@ -49,20 +44,31 @@ const Navbar = () => {
             </NavLink>
           </div>
 
-          <div className={css.nav_content_item}>
-            <NavLink to={"/account"}>
-              <span
-                className={css.user}
-                style={{
-                  backgroundImage: `url('${ctx.image}')`,
-                  background: "blue",
-                }}
-              ></span>
+          {/* <div className={css.header_nav_content_item}>
+            <NavLink
+              className={({ isActive }) => {
+                return isActive ? css.header_nav_content_item_linkActive : null;
+              }}
+            >
+              <Add />
+              <span>Notes</span>
+            </NavLink>
+          </div> */}
+
+          <div className={css.header_nav_content_item}>
+            <NavLink
+              className={({ isActive }) => {
+                return isActive ? css.header_nav_content_item_linkActive : null;
+              }}
+              to={"/account"}
+            >
+              <Profile />
+              <span>Profile</span>
             </NavLink>
           </div>
         </div>
       </nav>
-    </>
+    </header>
   );
 };
 

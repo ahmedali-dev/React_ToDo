@@ -4,7 +4,7 @@ import authContext from "../Store/Auth-context";
 
 export const PrivateRoute = () => {
   const { isLoggedIn } = useContext(authContext);
-  return isLoggedIn ? <Outlet /> : <Navigate to={"/auth/signin"} />;
+  return isLoggedIn ? <Outlet /> : <Navigate to={"/auth"} />;
 };
 
 export const RouteNotAllow = () => {

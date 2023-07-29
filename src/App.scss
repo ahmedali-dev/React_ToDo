@@ -5,6 +5,7 @@
   padding: 0;
   box-sizing: border-box;
   font-family: "Poppins", sans-serif;
+  scroll-behavior: smooth;
 }
 
 :root {
@@ -14,14 +15,14 @@
   --blueLight: #7286d3;
   --whiteBlueLight: #8ea7e9;
   --redLight: #ff6464;
-  --gray: rgba(159, 167, 186, 0.09);
+  --gray: #9fa7bac2;
   --disabled: #c3c8de;
   --green: #6d9886;
   --blueback: #3c486b;
 
   /* shadow */
   --shadowBlue: -2px 5px 13px 2px rgba(62, 84, 172, 0.23);
-  --shadowGray: 0.3rem 0.1rem 1rem #9fa7ba17;
+  --shadowGray: 0.3rem 0.1rem 1rem #9fa7ba24;
   --shadowGreen: 0.4rem 0.1rem 1.6rem var(--green);
   --shadowGreenLight: 0.4rem 0.1rem 1.6rem #6d988644;
 
@@ -93,7 +94,7 @@ button {
 
 @media screen and (min-width: 768px) {
   main {
-    margin-top: 5rem;
+    // margin-top: 5rem;
   }
 }
 
