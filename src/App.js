@@ -1,4 +1,4 @@
-import { Link, Route, Routes } from "react-router-dom";
+import { Link, Navigate, Route, Routes } from "react-router-dom";
 import "./App.scss";
 import React, { useContext } from "react";
 import AuthContext from "./Store/Auth-context";
@@ -67,18 +67,17 @@ const App = (props) => {
             <Route path="/account">
               <Route index element={<Account />} />
             </Route>
+            <Route
+              path="/"
+              element={<Navigate to={"/lists"} replace={true} />}
+            />
           </Route>
 
-          <Route
-            path="/"
-            element={
-              <div>
-                <Link to={"/auth"}>signup</Link>
-              </div>
-            }
-          />
-
           <Route element={<RouteNotAllow />}>
+            <Route
+              path="/"
+              element={<Navigate to={"/auth"} replace={true} />}
+            />
             <Route path={"/register"} element={<Register />} />
             <Route path={"/auth"} element={<Login />} />
             <Route path={"/password_reset"} element={<PasswordReset />} />
